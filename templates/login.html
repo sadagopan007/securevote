@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Login · SecureVote{% endblock %}
+
+{% block content %}
+<div class="page-wrap">
+  <div class="card">
+    <div class="steps">
+      <div class="step active"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+    </div>
+
+    <h1>Voter<br>Identity Check</h1>
+    <p class="subtitle">Enter your Voter ID and Aadhaar number to receive a one-time password on your registered mobile.</p>
+
+    {% if error %}
+    <div class="alert alert-error">⚠ {{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/send_otp">
+      <div class="field">
+        <label class="label" for="voter_id">Voter ID</label>
+        <input type="text" id="voter_id" name="voter_id"
+               placeholder="e.g. ABC1234567"
+               maxlength="15" required autocomplete="off"/>
+      </div>
+
+      <div class="field">
+        <label class="label" for="aadhaar">Aadhaar Number (12 digits)</label>
+        <input type="tel" id="aadhaar" name="aadhaar"
+               placeholder="XXXX XXXX XXXX"
+               maxlength="12" pattern="\d{12}" required autocomplete="off"/>
+        <small style="color:var(--mid);font-size:.78rem;margin-top:.35rem;display:block">
+          🔒 Simulated — no real data stored
+        </small>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Send OTP →</button>
+    </form>
+
+    <hr class="divider"/>
+    <div style="font-size:.82rem;color:var(--mid);line-height:1.7">
+      <strong style="color:var(--ink)">Demo credentials:</strong><br>
+      Voter ID: <code style="background:var(--paper);padding:.1rem .4rem;border-radius:4px">VOTER001</code>
+      &nbsp; Aadhaar: <code style="background:var(--paper);padding:.1rem .4rem;border-radius:4px">123456789012</code>
+    </div>
+  </div>
+</div>
+{% endblock %}
